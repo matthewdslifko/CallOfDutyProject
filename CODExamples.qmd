@@ -23,7 +23,7 @@ Weapons <- read.csv(file = "https://raw.githubusercontent.com/matthewdslifko/Cal
 
 ```
 
-## Example 1 - Exploratory Data Analysis (EDA) and Processing Character Data
+## Example 1 - Exploratory Data Analysis (EDA) Process and Processing Character Data
 
 #### Discussion Opportunities
 
@@ -79,7 +79,7 @@ ggplot(data = CODGames2, mapping = aes(x = Damage)) +
        y = "Number of Games")
 ```
 
-*Important Discussion Point*: The end goal of EDA is not to create the visualization. Instead we want to learn something about the variable(s). In this case, we can see that the distribution is clearly bimodel with some outliers on the high end of the distribution.
+***Important Discussion Point***: The end goal of EDA is not to create the visualization. Instead we want to learn something about the variable(s). In this case, we can see that the distribution is clearly bimodel with some outliers on the high end of the distribution.
 
 (Optional) For the sake presentations, I like to remind students that it is often helpful to annotate plots. For instance, I might want to call attention to the 2 highest bins. One way to accomplish this is demonstrated below. The annotate commands are partially automated but require some trial and error when determining coordinates.
 
@@ -173,6 +173,170 @@ ggplot(data = CODGames2, mapping = aes(x = Damage, fill = Mode)) +
            label= paste("Hardcore SD Damage = ", round(DamageSummary$StdDev[2], digits=0)))
 ```
 
-## Useful Resource
+#### Summary
+
+This example provides an opportunity to discuss a number of useful R functions and ideas, while presenting statistical thinking as a process of exploration, decision making, and multivariable reasoning.
+
+## Example 2 - Processing Character Data and Importance of Checking Calculations
+
+#### Discussion Opportunities
+
+This example provides an opportunity to discuss the following ideas:
+
+-   character string processing and new variable creation
+
+-   if/else with more than 2 conditions
+
+-   importance of manually checking calculations
+
+-   reordering factors for visualization
+
+-   exploring WARNING messages
+
+-   BONUS: discuss whether there is a difference between proportions of wins and losses OR is the difference just random variation?
+
+#### Background Information
+
+Each online match consists of two competing teams that earn points for various tasks. The `Result` variable shows the team scores at the end of the match. The player's team score is listed first and the team with the higher score is considered the winner. Using `CODGames1`, some examples:
+
+-   Row 1: The character string "100-97" means that the player's team won by a score of 100 to 97.
+
+-   Row 2: The character string "76-89" means that the player's team lost by a score of 89 to 76.
+
+-   Row 36: The character string "200-200" means that the teams played to a draw, or tied 200 to 200.
+
+#### Initial Task and Exploration
+
+Instruction for students: Answer the following research question using `CODGames1`: Is the player's team more likely to win, lose, or draw?
+
+If this is task is taught during the exploratory data analysis phase, I would expect students to support their answer both visually and numerically. I also emphasize that when calculating proportions, the code should work for any dataset, not just this specific dataset. (In other words, students should divide by 235 since 235 is the number of rows in this dataset.) The challenge is that the character string `Result` is not currently in a usable form. I would then prompt students to brainstorm how we can convert `Result` to something that is more useful to us.
+
+The key for this dataset is to recognize that a hyphen ("-") separates the player's team score from the opposing team score. So, we need to split the `Result` into two scores based on the hyphen. There are many ways to do this, but the `separate()` function from the `tidyr` package (part of `tidyverse`) is one potential solution. In the solution shown below, I also used the `case_when()` function to illustrate how to handle an if/else with more than 2 conditions. (A nested `ifelse()` command is also possible.)
+
+```{r}
+#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore); then create MatchResult to determine if player's team won, lost, or played to a draw
+Scores <- CODGames1 %>%
+  separate(Result, into=c("PlayerTeamScore", "OpponentScore"), sep="-", remove=FALSE) %>%
+  mutate(MatchResult = case_when(PlayerTeamScore < OpponentScore ~ "Loss",
+                                 PlayerTeamScore > OpponentScore ~ "Win",
+                                 PlayerTeamScore == OpponentScore ~ "Draw"))
+```
+
+***Important Discussion Point***: Just because your code runs without error does not mean that your code is correct. The code used above has an intentional mistake. The code runs without error, or warnings, but there is a logical error affect the results. You can see the mistake by exploring the first few rows the `Scores` dataset.
+
+```{r}
+Scores %>%
+  select(Result, PlayerTeamScore, OpponentScore, MatchResult) %>%
+  head()
+```
+
+Based on the first six rows, we can see that the `MatchResults` values are seemingly incorrect for rows 1, 3, 4, 5, and 6. This prompts an important discussion as to the reason for the incorrect results.
+
+The key is that `PlayerTeamScore` and `OpponentScore` are still being treated as character strings. The greater than and less than comparisons are based on the alphabetical orderings. To clarify, consider Row 1. Since the "1" in "100" comes before the "9" in "97", "100" is viewed as alphabetically first (or smaller) than "97". This means that `PlayerTeamScore < OpponentScore`, making this a loss.
+
+One possible solution is to convert these variables to numeric before making the comparison as shown below.
+
+```{r}
+#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore) and convert to numeric; then create MatchResult to determine if player's team won, lost, or played to a draw
+Scores <- CODGames1 %>%
+  separate(Result, into=c("PlayerTeamScore", "OpponentScore"), sep="-", remove=FALSE) %>%
+  mutate(PlayerTeamScore = as.numeric(PlayerTeamScore),
+         OpponentScore = as.numeric(OpponentScore),
+         MatchResult = case_when(PlayerTeamScore < OpponentScore ~ "Loss",
+                                 PlayerTeamScore > OpponentScore ~ "Win",
+                                 PlayerTeamScore == OpponentScore ~ "Draw"))
+
+Scores %>%
+  select(Result, PlayerTeamScore, OpponentScore, MatchResult) %>%
+  head()
+```
+
+Now that `Result` has been converted to useful information, we can calculate proportions and visualize the results. (NOTE: Although it makes creating the plot more challenging, I would recommend exploring the proportions rather than the counts of Wins, Losses, and Draws. The main reason for this is that I sometimes tell students that `CODGames2` is a different player who played many more games. Comparing counts between the players is not as fair as comparing proportions.)
+
+First, determine the counts for Win, Loss, and Draw.
+
+```{r}
+#Calculate Counts and Proportions for Win, Loss, Draw
+MatchSummary <-
+  Scores %>%
+  group_by(MatchResult) %>%
+  summarize(Count = n()) %>%
+  mutate(Proportion = Count/sum(Count))
+
+MatchSummary
+```
+
+We can use the `MatchSummary` data frame to visualize the results as shown below:
+
+```{r}
+#Create a plot showing the proportions
+ggplot(data = MatchSummary, mapping = aes(x = MatchResult, y = Proportion)) +
+  geom_bar(stat = "identity", fill = "lightgreen", color = "black") +
+  labs(x = "Player's Team Outcome")
+```
+
+In many instances, we may want to reorder the categories on the x-axis. For instance, in this case, we might want reorder the bars in descending order based on `Proportion` or `Count`. I might ask students to spend a few minutes Google searching for how this might be accomplished.
+
+This can be done many ways such as using the `reorder()` function from the `stats` package or `fct_reorder()` from the `forcats` library. (`fct_reorder()` is loaded as part of the tidyverse and is useful for working with factors.)
+
+```{r}
+MatchSummary <- 
+  MatchSummary %>%
+  mutate(MatchResult = fct_reorder(MatchResult, Proportion, .desc = TRUE))
+
+ggplot(data = MatchSummary, mapping = aes(x = MatchResult, y = Proportion)) +
+  geom_bar(stat = "identity", fill = "lightgreen", color = "black") +
+  labs(x = "Player's Team Outcome")
+```
+
+#### Challenges on Other Gameplay Dataset (`CODGames2`)
+
+The second dataset, `CODGames2`, presents some additional challenges that arise when working with data. Suppose we try to separate the `Result` variable as before using the code shown below. A warning message is produced.
+
+```{r}
+Scores <- CODGames2 %>%
+  separate(Result, into=c("PlayerTeamScore", "OpponentScore"), sep="-", remove=FALSE) %>%
+  mutate(PlayerTeamScore = as.numeric(PlayerTeamScore),
+         OpponentScore = as.numeric(OpponentScore),
+         MatchResult = case_when(PlayerTeamScore < OpponentScore ~ "Loss",
+                                 PlayerTeamScore > OpponentScore ~ "Win",
+                                 PlayerTeamScore == OpponentScore ~ "Draw"))
+```
+
+***Students often ignore warning messages, but this should be investigated.*** It is not obvious as to the reason that previously working code now produces a previously unseen warning. Have students investigate a few of the rows mentioned in he warning.
+
+```{r}
+Scores %>%
+  select(Result, PlayerTeamScore, OpponentScore, MatchResult, GameType) %>%
+  filter(row_number() %in% c(56:58, 325:327))
+```
+
+Unfortunately, the `Result` column is not always formatted to include a hyphen. We can see that certain game types (Control and Search and Destroy) have the `PlayerTeamScore` and `OpponentScore` separated by the word "to" instead of a hyphen. There are several ways to handle this such as modifying the `separate()` function to look for a hyphen or "to". Alternatively, we could replace "to" using a `gsub()` command.
+
+#### Bonus Discussion
+
+The plot shows that the player won a higher proportion of games than they lost. Do you believe the difference is due to random variation or something else?
+
+#### Summary
+
+This example provides an opportunity to discuss statistical thinking as an investigative process. The example requires students to process character data to create new/usable features, provides an opportunity to explore the critical idea that error free code may still be incorrect, allows for a discussion of many useful R functions and ideas, and presents a situation in which our working code breaks when used on another dataset.
+
+## Example 2 - Processing Character Data and Importance of Checking Calculations
+
+#### Discussion Opportunities
+
+This example provides an opportunity to discuss the following ideas:
+
+-   
+
+#### Background Information
+
+#### Initial Task and Exploration
+
+#### Further Background 
+
+#### Revised Task and Exploration
+
+#### SummaryUseful Resource
 
 \[R Graphics Cookbook (Chang)\] \[http://r-graphics.org/index.html\]

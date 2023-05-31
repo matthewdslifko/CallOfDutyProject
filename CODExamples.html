@@ -150,8 +150,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Weapons <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/CODWeapons.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="example-1---exploratory-data-analysis-eda-and-processing-character-data" class="level2">
-<h2 class="anchored" data-anchor-id="example-1---exploratory-data-analysis-eda-and-processing-character-data">Example 1 - Exploratory Data Analysis (EDA) and Processing Character Data</h2>
+<section id="example-1---exploratory-data-analysis-eda-process-and-processing-character-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-1---exploratory-data-analysis-eda-process-and-processing-character-data">Example 1 - Exploratory Data Analysis (EDA) Process and Processing Character Data</h2>
 <section id="discussion-opportunities" class="level4">
 <h4 class="anchored" data-anchor-id="discussion-opportunities">Discussion Opportunities</h4>
 <p>This example provides an opportunity to discuss the following ideas:</p>
@@ -216,7 +216,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="CODExamples_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p><em>Important Discussion Point</em>: The end goal of EDA is not to create the visualization. Instead we want to learn something about the variable(s). In this case, we can see that the distribution is clearly bimodel with some outliers on the high end of the distribution.</p>
+<p><strong><em>Important Discussion Point</em></strong>: The end goal of EDA is not to create the visualization. Instead we want to learn something about the variable(s). In this case, we can see that the distribution is clearly bimodel with some outliers on the high end of the distribution.</p>
 <p>(Optional) For the sake presentations, I like to remind students that it is often helpful to annotate plots. For instance, I might want to call attention to the 2 highest bins. One way to accomplish this is demonstrated below. The annotate commands are partially automated but require some trial and error when determining coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Store the histogram as an object</span></span>
@@ -334,10 +334,204 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="summary" class="level4">
+<h4 class="anchored" data-anchor-id="summary">Summary</h4>
+<p>This example provides an opportunity to discuss a number of useful R functions and ideas, while presenting statistical thinking as a process of exploration, decision making, and multivariable reasoning.</p>
 </section>
-<section id="useful-resource" class="level2">
-<h2 class="anchored" data-anchor-id="useful-resource">Useful Resource</h2>
+</section>
+<section id="example-2---processing-character-data-and-importance-of-checking-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="example-2---processing-character-data-and-importance-of-checking-calculations">Example 2 - Processing Character Data and Importance of Checking Calculations</h2>
+<section id="discussion-opportunities-1" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities-1">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li><p>character string processing and new variable creation</p></li>
+<li><p>if/else with more than 2 conditions</p></li>
+<li><p>importance of manually checking calculations</p></li>
+<li><p>reordering factors for visualization</p></li>
+<li><p>exploring WARNING messages</p></li>
+<li><p>BONUS: discuss whether there is a difference between proportions of wins and losses OR is the difference just random variation?</p></li>
+</ul>
+</section>
+<section id="background-information-1" class="level4">
+<h4 class="anchored" data-anchor-id="background-information-1">Background Information</h4>
+<p>Each online match consists of two competing teams that earn points for various tasks. The <code>Result</code> variable shows the team scores at the end of the match. The player’s team score is listed first and the team with the higher score is considered the winner. Using <code>CODGames1</code>, some examples:</p>
+<ul>
+<li><p>Row 1: The character string “100-97” means that the player’s team won by a score of 100 to 97.</p></li>
+<li><p>Row 2: The character string “76-89” means that the player’s team lost by a score of 89 to 76.</p></li>
+<li><p>Row 36: The character string “200-200” means that the teams played to a draw, or tied 200 to 200.</p></li>
+</ul>
+</section>
+<section id="initial-task-and-exploration-1" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration-1">Initial Task and Exploration</h4>
+<p>Instruction for students: Answer the following research question using <code>CODGames1</code>: Is the player’s team more likely to win, lose, or draw?</p>
+<p>If this is task is taught during the exploratory data analysis phase, I would expect students to support their answer both visually and numerically. I also emphasize that when calculating proportions, the code should work for any dataset, not just this specific dataset. (In other words, students should divide by 235 since 235 is the number of rows in this dataset.) The challenge is that the character string <code>Result</code> is not currently in a usable form. I would then prompt students to brainstorm how we can convert <code>Result</code> to something that is more useful to us.</p>
+<p>The key for this dataset is to recognize that a hyphen (“-”) separates the player’s team score from the opposing team score. So, we need to split the <code>Result</code> into two scores based on the hyphen. There are many ways to do this, but the <code>separate()</code> function from the <code>tidyr</code> package (part of <code>tidyverse</code>) is one potential solution. In the solution shown below, I also used the <code>case_when()</code> function to illustrate how to handle an if/else with more than 2 conditions. (A nested <code>ifelse()</code> command is also possible.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore); then create MatchResult to determine if player's team won, lost, or played to a draw</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong><em>Important Discussion Point</em></strong>: Just because your code runs without error does not mean that your code is correct. The code used above has an intentional mistake. The code runs without error, or warnings, but there is a logical error affect the results. You can see the mistake by exploring the first few rows the <code>Scores</code> dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult
+1 100-97             100            97        Loss
+2  76-89              76            89        Loss
+3 100-92             100            92        Loss
+4 80-100              80           100         Win
+5 71-100              71           100         Win
+6 85-100              85           100         Win</code></pre>
+</div>
+</div>
+<p>Based on the first six rows, we can see that the <code>MatchResults</code> values are seemingly incorrect for rows 1, 3, 4, 5, and 6. This prompts an important discussion as to the reason for the incorrect results.</p>
+<p>The key is that <code>PlayerTeamScore</code> and <code>OpponentScore</code> are still being treated as character strings. The greater than and less than comparisons are based on the alphabetical orderings. To clarify, consider Row 1. Since the “1” in “100” comes before the “9” in “97”, “100” is viewed as alphabetically first (or smaller) than “97”. This means that <code>PlayerTeamScore &lt; OpponentScore</code>, making this a loss.</p>
+<p>One possible solution is to convert these variables to numeric before making the comparison as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore) and convert to numeric; then create MatchResult to determine if player's team won, lost, or played to a draw</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PlayerTeamScore =</span> <span class="fu">as.numeric</span>(PlayerTeamScore),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">OpponentScore =</span> <span class="fu">as.numeric</span>(OpponentScore),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult
+1 100-97             100            97         Win
+2  76-89              76            89        Loss
+3 100-92             100            92         Win
+4 80-100              80           100        Loss
+5 71-100              71           100        Loss
+6 85-100              85           100        Loss</code></pre>
+</div>
+</div>
+<p>Now that <code>Result</code> has been converted to useful information, we can calculate proportions and visualize the results. (NOTE: Although it makes creating the plot more challenging, I would recommend exploring the proportions rather than the counts of Wins, Losses, and Draws. The main reason for this is that I sometimes tell students that <code>CODGames2</code> is a different player who played many more games. Comparing counts between the players is not as fair as comparing proportions.)</p>
+<p>First, determine the counts for Win, Loss, and Draw.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Counts and Proportions for Win, Loss, Draw</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>MatchSummary <span class="ot">&lt;-</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  Scores <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Count<span class="sc">/</span><span class="fu">sum</span>(Count))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>MatchSummary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  MatchResult Count Proportion
+  &lt;chr&gt;       &lt;int&gt;      &lt;dbl&gt;
+1 Draw            3     0.0128
+2 Loss          106     0.451 
+3 Win           126     0.536 </code></pre>
+</div>
+</div>
+<p>We can use the <code>MatchSummary</code> data frame to visualize the results as shown below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a plot showing the proportions</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> MatchSummary, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> MatchResult, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Player's Team Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In many instances, we may want to reorder the categories on the x-axis. For instance, in this case, we might want reorder the bars in descending order based on <code>Proportion</code> or <code>Count</code>. I might ask students to spend a few minutes Google searching for how this might be accomplished.</p>
+<p>This can be done many ways such as using the <code>reorder()</code> function from the <code>stats</code> package or <code>fct_reorder()</code> from the <code>forcats</code> library. (<code>fct_reorder()</code> is loaded as part of the tidyverse and is useful for working with factors.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>MatchSummary <span class="ot">&lt;-</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  MatchSummary <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MatchResult =</span> <span class="fu">fct_reorder</span>(MatchResult, Proportion, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> MatchSummary, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> MatchResult, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Player's Team Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="challenges-on-other-gameplay-dataset-codgames2" class="level4">
+<h4 class="anchored" data-anchor-id="challenges-on-other-gameplay-dataset-codgames2">Challenges on Other Gameplay Dataset (<code>CODGames2</code>)</h4>
+<p>The second dataset, <code>CODGames2</code>, presents some additional challenges that arise when working with data. Suppose we try to separate the <code>Result</code> variable as before using the code shown below. A warning message is produced.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames2 <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PlayerTeamScore =</span> <span class="fu">as.numeric</span>(PlayerTeamScore),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">OpponentScore =</span> <span class="fu">as.numeric</span>(OpponentScore),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 20 rows [56, 57,
+58, 325, 326, 327, 768, 769, 770, 771, 772, 892, 893, 894, 895, 896, 897, 898,
+899, 900].</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mask$eval_all_mutate(quo): NAs introduced by coercion</code></pre>
+</div>
+</div>
+<p><strong><em>Students often ignore warning messages, but this should be investigated.</em></strong> It is not obvious as to the reason that previously working code now produces a previously unseen warning. Have students investigate a few of the rows mentioned in he warning.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult, GameType) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">58</span>, <span class="dv">325</span><span class="sc">:</span><span class="dv">327</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult           GameType
+1 3 to 0              NA            NA        &lt;NA&gt;            Control
+2 3 to 0              NA            NA        &lt;NA&gt;            Control
+3 3 to 2              NA            NA        &lt;NA&gt;            Control
+4 2 to 6              NA            NA        &lt;NA&gt; Search and Destroy
+5 0 to 6              NA            NA        &lt;NA&gt; Search and Destroy
+6 5 to 6              NA            NA        &lt;NA&gt; Search and Destroy</code></pre>
+</div>
+</div>
+<p>Unfortunately, the <code>Result</code> column is not always formatted to include a hyphen. We can see that certain game types (Control and Search and Destroy) have the <code>PlayerTeamScore</code> and <code>OpponentScore</code> separated by the word “to” instead of a hyphen. There are several ways to handle this such as modifying the <code>separate()</code> function to look for a hyphen or “to”. Alternatively, we could replace “to” using a <code>gsub()</code> command.</p>
+</section>
+<section id="bonus-discussion" class="level4">
+<h4 class="anchored" data-anchor-id="bonus-discussion">Bonus Discussion</h4>
+<p>The plot shows that the player won a higher proportion of games than they lost. Do you believe the difference is due to random variation or something else?</p>
+</section>
+<section id="summary-1" class="level4">
+<h4 class="anchored" data-anchor-id="summary-1">Summary</h4>
+<p>This example provides an opportunity to discuss statistical thinking as an investigative process. The example requires students to process character data to create new/usable features, provides an opportunity to explore the critical idea that error free code may still be incorrect, allows for a discussion of many useful R functions and ideas, and presents a situation in which our working code breaks when used on another dataset.</p>
+</section>
+</section>
+<section id="example-2---processing-character-data-and-importance-of-checking-calculations-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-2---processing-character-data-and-importance-of-checking-calculations-1">Example 2 - Processing Character Data and Importance of Checking Calculations</h2>
+<section id="discussion-opportunities-2" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities-2">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="background-information-2" class="level4">
+<h4 class="anchored" data-anchor-id="background-information-2">Background Information</h4>
+</section>
+<section id="initial-task-and-exploration-2" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration-2">Initial Task and Exploration</h4>
+</section>
+<section id="further-background-1" class="level4">
+<h4 class="anchored" data-anchor-id="further-background-1">Further Background</h4>
+</section>
+<section id="revised-task-and-exploration-1" class="level4">
+<h4 class="anchored" data-anchor-id="revised-task-and-exploration-1">Revised Task and Exploration</h4>
+</section>
+<section id="summaryuseful-resource" class="level4">
+<h4 class="anchored" data-anchor-id="summaryuseful-resource">SummaryUseful Resource</h4>
 <p>[R Graphics Cookbook (Chang)] [http://r-graphics.org/index.html]</p>
+</section>
 </section>
 
 </main>
