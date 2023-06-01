@@ -177,7 +177,7 @@ ggplot(data = CODGames2, mapping = aes(x = Damage, fill = Mode)) +
 
 This example provides an opportunity to discuss a number of useful R functions and ideas, while presenting statistical thinking as a process of exploration, decision making, and multivariable reasoning.
 
-## Example 2 - Processing Character Data and Importance of Checking Calculations
+## Example 2 - Processing Character Data, Logical Errors/Importance of Checking Calculations, and Investigating Warnings
 
 #### Discussion Opportunities
 
@@ -189,11 +189,11 @@ This example provides an opportunity to discuss the following ideas:
 
 -   importance of manually checking calculations
 
--   reordering factors for visualization
+-   data visualization and reordering factors for visualization
 
 -   exploring WARNING messages
 
--   BONUS: discuss whether there is a difference between proportions of wins and losses OR is the difference just random variation?
+-   BONUS: discuss whether there is a difference between proportions of wins and losses OR is the difference just due to random variation?
 
 #### Background Information
 
@@ -209,7 +209,7 @@ Each online match consists of two competing teams that earn points for various t
 
 Instruction for students: Answer the following research question using `CODGames1`: Is the player's team more likely to win, lose, or draw?
 
-If this is task is taught during the exploratory data analysis phase, I would expect students to support their answer both visually and numerically. I also emphasize that when calculating proportions, the code should work for any dataset, not just this specific dataset. (In other words, students should divide by 235 since 235 is the number of rows in this dataset.) The challenge is that the character string `Result` is not currently in a usable form. I would then prompt students to brainstorm how we can convert `Result` to something that is more useful to us.
+Initial exploration: If this is task is taught during the exploratory data analysis phase, I would expect students to support their answer both visually and numerically. I also emphasize that when calculating proportions, the code should work for any dataset, not just this specific dataset. (In other words, students should divide by 235 since 235 is the number of rows in this dataset.) The challenge is that the character string `Result` is not currently in a usable form. I would then prompt students to brainstorm how we can convert `Result` to something that is more useful to us.
 
 The key for this dataset is to recognize that a hyphen ("-") separates the player's team score from the opposing team score. So, we need to split the `Result` into two scores based on the hyphen. There are many ways to do this, but the `separate()` function from the `tidyr` package (part of `tidyverse`) is one potential solution. In the solution shown below, I also used the `case_when()` function to illustrate how to handle an if/else with more than 2 conditions. (A nested `ifelse()` command is also possible.)
 
@@ -321,22 +321,276 @@ The plot shows that the player won a higher proportion of games than they lost. 
 
 This example provides an opportunity to discuss statistical thinking as an investigative process. The example requires students to process character data to create new/usable features, provides an opportunity to explore the critical idea that error free code may still be incorrect, allows for a discussion of many useful R functions and ideas, and presents a situation in which our working code breaks when used on another dataset.
 
-## Example 2 - Processing Character Data and Importance of Checking Calculations
+## Example 3 - Combining Data Tables and
 
 #### Discussion Opportunities
 
 This example provides an opportunity to discuss the following ideas:
 
--   
+-   Joining tables (with no common variable names)
+
+-   Filtering observations according to a condition
+
+-   Data visualization
+
+-   Adding means to boxplot
+
+-   Categories with small $n$
+
+-   Handling typographical errors in data entry
 
 #### Background Information
 
+The variable `Score` represents points earned by the player for actions completed during a match. (This `Score` variable is different than the team scores explored in the previous question.) For instance, capturing an enemy location in the Domination game type earns 200 points while eliminating an enemy in Team Death Match (TDM) earns 50 points.
+
+The variable `FullPartial` indicates whether the player participated in the complete match (`FullPartial = Full`) or only participated in a portion of the match (`FullPartial = Partial`). There are several reasons that the player may have only participated in a partial match. First, the player may have encountered internet issues and was disconnected from the server. In such cases, the player is likely missing statistics related to the match performance. Second, the more common reason for a partial match is that the player was assigned to the game lobby after the game had already started. When the player joined an in-progress game, the player only completed a partial match.
+
+During each match, the player selects a primary weapon to use for the match. The player's choice is listed in the `PrimaryWeapon` variable. As the game offers many weapon options and some weapons may have been used in limited circumstances, it may be helpful to explore the weapon class (e.g., shotgun, sniper rifle, melee, etc.). Information about the weapon classes are not found in the gameplay datasets. To get this information, you will have to use the `Class` variable from the `Weapons` dataset.
+
 #### Initial Task and Exploration
 
-#### Further Background 
+Instruction for students: Answer the following research question: For complete matches in `CODGames1`, does the player's score depend on the weapon class used?
+
+Initial exploration: For a question like this, I like to ask students to sketch the visualization they wish to create and outline the steps that must be taken in order to create the visualization. For this question, we must add the weapon class to the gampeplay data, select the observations associated with full/complete matches, and create a visualization.
+
+NOTE: This problem requires students to get the weapon class (named `Class`) from the `Weapons` dataset and add it to the `CODGames1` dataset. First, we will check to see if the datasets have any common variable names. (They do not.) Then, we will preview the Weapons dataset.
+
+```{r}
+#Check to see if the datasets have any common variable names - They do not
+intersect(colnames(CODGames1), colnames(Weapons))
+
+#Preview Weapons
+head(Weapons, 5)
+```
+
+Since the datasets have no variable names in common, we must decide how to establish a match between the datasets. In `CODGames1`, the player's primary weapon choice was indicated in the `PrimaryWeapon` variable. In the `Weapons` dataset, the variable containing the name of specific weapons is named `Weapon`. We start by performing an appropriate join and removing the partial matches.
+
+```{r}
+GamesWithClass <- 
+  CODGames1 %>%
+  left_join(Weapons, by = c("PrimaryWeapon"="Weapon")) %>%
+  filter(FullPartial == "Full") %>%
+  select(Score, FullPartial, PrimaryWeapon, Class)
+
+head(GamesWithClass)
+```
+
+We can explore this research question by creating side-by-side boxplots that show the distribution of `Score` for each of the weapon classes as shown below.
+
+```{r}
+ggplot(data = GamesWithClass, mapping = aes(x = Class, y = Score)) +
+  geom_boxplot() + 
+  labs(x = "Weapon Class",
+       y = "Score") 
+```
+
+Applying tricks that were previously covered, we might want to reorder the weapon classes in descending order of the medians. Further, since students often look at boxplots and talk about the mean, which is not included by default, I will ask students to add the mean to these boxplots. To do this, create a new dataset called `ClassSummaries` that have the means for each class
+
+```{r}
+#Calculate summary stats for each class 
+ClassSummaries <-
+  GamesWithClass %>%
+  group_by(Class) %>%
+  summarize(Games = n(),
+            MeanScore = mean(Score, na.rm = TRUE),
+            StdDevScore = sd(Score, na.rm = TRUE),
+            MedianScore = median(Score, na.rm = TRUE))
+
+#Reorder Weapon classes based on decreasing medians
+GamesWithClass <- 
+  GamesWithClass %>% 
+  mutate(Class = fct_reorder(Class, Score, .fun = median, .desc = TRUE))
+
+#Create Side by side boxplots with means
+ggplot(data = GamesWithClass, mapping = aes(x=Class, y=Score)) + 
+  geom_boxplot() +
+  geom_point(data = ClassSummaries, aes(y = MeanScore), shape = 5, color = "red") +
+  labs(x = "Weapon Class",
+       y = "Score") 
+```
+
+Do you think it is fair to conclude that the LMG weapon class is associated with larger values of `Score` than the other classes? Why does the boxplot consist of a single line but lacks a box and whiskers?
+
+#### Challenges on Other Gameplay Dataset (`CODGames2`)
+
+The second dataset, `CODGames2`, presents some additional challenges that arise when working with data. In particular, some of the values in `PrimaryWeapon` do not match the values for `Weapon` found in the `Weapons` dataset. To illustrate this, consider the following which lists the distinct values of `PrimaryWeapon` in `CODGames2` in ascending order.
+
+```{r}
+CODGames2 %>%
+  distinct(PrimaryWeapon) %>%
+  arrange(PrimaryWeapon)
+  
+```
+
+Looking at the first few rows reveals some potential issues. There is an "AK 47" and an "AK-47". Checking the `Weapons` dataset reveals that the proper name is "AK-47". ("AK-47u" is actually a different type of weapon.) So, the rows with "AK 47" (no hyphen) are likely typographical errors and will have no match in the `Weapons` dataset. Similar mistakes occur with other weapons, such as "Pelington 703", "Pellington", and "Pellington 703". This helps to illustrate that data quality issues present additional challenges.
+
+This opens up several good discussion points. First, ask students how they will go about solving this issue. Second, it brings up an opportunity to review how different types of joins will handle the situation when no match is present. For instance, `left_join()` and `inner_join()` handle situations without a match differently. Finally, these could be used to motivate the idea of probabilistic joins.
+
+#### Summary
+
+This example provides an opportunity to have students join tables for the purpose of adding new information and to discuss the decision making process for handling low quality data in the form of typographical errors.
+
+## Example 4 - Regression
+
+#### Discussion Opportunities
+
+This example provides an opportunity to discuss the following ideas:
+
+-   linear regression and checking assumptions
+
+-   residuals
+
+-   multivariable thinking and lurking variables
+
+-   indicator variables
+
+-   interaction
+
+-   comparing models
+
+-   outliers
+
+-   statistics as an investigative process
+
+-   implementation issues on new data
+
+#### Background Information
+
+In the game, players progress through a series of ranks (Private, Corporal, Sergeant, etc.) by earning eXperience Points (XP). The amount of XP the player earned in each match is contained in the `TotalXP` variable.
+
+The `Score` variable (described in Example 3), along with other factors that are not necessarily included in the dataset, are used to calculate the XP earned during each game.
+
+#### Initial Task and Exploration
+
+Instruction for students: Using the `CODGames1` dataset, answer the following research question: What is the relationship between the player's score and the XP earned?
+
+As a starting point, students may begin to explore the relationship by creating an appropriate visualization such as shown below.
+
+```{r}
+#Create a scatterplot showing relationship between TotalXP and Score
+ggplot(data = CODGames1, mapping = aes(x = Score, y = TotalXP)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  labs(y = "Experience Points Earned")
+
+#Since a linear relationsihp appears reasonable, build a simple linear regression model
+model1 <- lm(TotalXP ~ Score, data = CODGames1)
+```
+
+The plot suggests a reasonably linear pattern and produces an $R^2 =$ `r round(cor(CODGames1$Score, CODGames1$TotalXP)^2, digits = 2)`. However, there might be an issue with increasing variance and/or some outliers in which the player earned more than 30,000 XP in a single match. (More on these outliers can be find near the end of the Revised Task and Exploration section.)
+
+This might serve as a good time to review the assumptions of linear regression and methods for investigating the assumptions.
+
+**Important discussion point (Multivariate thinking)**: I like to use this opportunity to remind students to think about other variables, included in the dataset or otherwise, that might also impact this relationship.
+
+#### Further Background
+
+Players can earn and use tokens that grant double the amount of XP for short periods of time (e.g., 30 minutes). The variable `XPType` provides information as to the nature of the XP granted. In the `CODGames1` dataset, `XPType` takes on values of `10% Boost` and `Double XP + 10%`, the latter of which suggests that a double XP token has been used.
 
 #### Revised Task and Exploration
 
-#### SummaryUseful Resource
+Instruction for students: For the regression model for XP based on Score, create a plot showing the residuals as a function of the predicted values. Code the points (use color/shape) to incorporate the `XPType` and look for patterns.
 
-\[R Graphics Cookbook (Chang)\] \[http://r-graphics.org/index.html\]
+Continued exploration: The plot is shown below. Some discussion points, include adding a horizontal line (through the `geom_hline()`, specifying the colors to be used through `scale_color_manual()`, moving the legend location, and how color might cause problems for people with types of color-blindness (so we added shapes).
+
+```{r}
+#Create a temporary data frame containing the residuals, fitted values, and XPType
+temp_df <- data.frame(Residuals = model1$residuals, yhat = model1$fitted.values,
+                      XPType = CODGames1$XPType)
+
+#Create the visualization
+ggplot(data = temp_df, mapping = aes(x = yhat, y = Residuals, 
+                                     color = XPType, shape = XPType)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "blue") + 
+  scale_color_manual(values=c("#54B6E9", "#D55E00")) + 
+  labs(x = "Predicted Value",
+       y = "Residual",
+       color = "Type of XP",
+       shape = "Type of XP") +
+  theme(legend.position = "top")
+```
+
+The plot suggests that most of the positive residuals correspond to the situation in which the player has used a double XP token (triangles), while most of the negative residuals correspond to the case when double XP is not used (circles). This means that we are systematically overestimating the XP for cases in which double XP is not used, while underestimating the XP when double XP tokens are used. Updating the scatterplot of XP as a function of `Score`, but coding by `XPType` helps to visually illustrate the nature of the relationship.
+
+```{r}
+#Create a scatterplot showing relationship between TotalXP and Score
+ggplot(data = CODGames1, mapping = aes(x = Score, y = TotalXP,
+                                       color = XPType, shape = XPType)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  labs(y = "Experience Points Earned",
+       color = "Type of XP",
+       shape = "Type of XP")
+```
+
+The plot suggests potentially different intercepts and different slopes for the different levels of `XPType`. At this point, I like to ask students how we can account for this in our model. We can incorporate this information into our model by introducing an indicator variable for `XPType` and an interaction term between the `XPType` indicator and `Score`. While the `lm()` function can automatically create indicators and the interaction term, I prefer to create my own so that I have control over the use of 0's and 1's.
+
+```{r}
+#Create indicator for Double XP and interaction term
+CODGames1 <-
+  CODGames1 %>%
+  mutate(Double = ifelse(XPType == "Double XP + 10%", 1, 0),
+         ScoreDoubleInt = Score*Double)
+
+#Build multiple linear regression model
+model2 <- lm(TotalXP ~ Score + Double + ScoreDoubleInt, data = CODGames1)
+summary(model2)
+```
+
+The analysis of this model can promote a variety of discussions such as comparing models, significance testing, interpreting coefficients, generating confidence intervals, explaining interactions, further investigation of assumptions, etc.
+
+**Outliers**: The scatterplots of `TotalXP` as a function of `Score` reveal a few outliers on the high end (XP more than 30,000). The outliers can be explained. Basically, as a player uses a weapon, the player will complete something called a weapon challenge. Upon completion of all weapon challenges for a given weapon, the player is award 10,000 XP points. If the player was also using a double XP token, this results in the player earning an extra 20,000 points.
+
+**Important discussion point**: I usually take this opportunity to discuss how subject matter expertise/domain knowledge gives certain students an advantage working with this dataset. Although I provide students with the necessary background to guide the exploration, students who have knowledge of the game would likely outperform peers without knowledge. This translates into real world situations as well.
+
+#### Challenges on Other Gameplay Dataset (`CODGames2`)
+
+Even when students understand the methodology covered in this example, new challenges arise when implementing the methods on different datasets. Applying the same code and methods to the `CODGames2` dataset presents several challenges.
+
+First, the code to create the temporary data frame used for the residuals vs. fitted values plot, no longer works.
+
+```{r, error = TRUE}
+#Build SLR model on CODGames2
+model1_dat2 <- lm(TotalXP ~ Score, data = CODGames2)
+
+#Create temporary dataframe for plotting as we did before
+temp_df <- data.frame(Residuals = model1_dat2$residuals, yhat = model1_dat2$fitted.values,
+                      XPType = CODGames2$XPType)
+```
+
+The error messages mentions that arguments imply differing number of rows. The 1464 number corresponds to the number of rows in `CODGames2`. The 1309 number is a little more mysterious. It corresponds to the number of residuals (or predicted values) from the model. Why are there 1309 residuals when the dataset had 1464 rows? This is because the dataset has some missing values in the `TotalXP` and/or `Score` columns.
+
+Second, suppose that we wish to recreate the scatterplot of `TotalXP` as a function `Score` coded by `XPType` using the `CODGames2` dataset.
+
+```{r}
+#Create a scatterplot showing relationship between TotalXP and Score
+ggplot(data = CODGames2, mapping = aes(x = Score, y = TotalXP,
+                                       color = XPType, shape = XPType)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  labs(y = "Experience Points Earned",
+       color = "Type of XP",
+       shape = "Type of XP")
+```
+
+The plot reveals that `XPType` has more than the 2 levels (`Double XP + 10%` and `10% Boost`) we expected. Most of the additional levels are typos, spacing issues such as no space after `+` sign, or inconsistent naming (in the case of `10% Boost` vs `10% Season Boost`). This provides a nice opportunity to discuss how students will handle the extra levels.
+
+Third, we often compare models by assessing performance on a test set. Suppose we use `model2`, which was trained used `CODGames1` and included the `XPType` indicator and interaction terms. Suppose we want to see how will this model will generalize to new data in the form of `CODGames2`. Allow R to create its own indicators (something students prefer to do) and add the interaction term through the model statement as shown below. Then, try to obtain predictions for `CODGames2`.
+
+```{r, error = TRUE}
+#Recreate model2 using CODGames1 but let R create indicators
+model2 <- lm(TotalXP ~ Score + XPType + Score:XPType, data = CODGames1)
+
+test_pred <- predict(model2, newdata = CODGames2)
+```
+
+The throws an error message since the `XPType` variable in `CODGames2` has new levels that did not show in the training data (`CODGames1`).
+
+#### Summary
+
+This example provides an opportunity to discuss statistical thinking as an investigative process, explore multivariable thinking, and covers some common implementation challenges caused by data quality issues.
+
+#### Useful Resource
+
+\[R Graphics Cookbook\] \[http://r-graphics.org/index.html\]
