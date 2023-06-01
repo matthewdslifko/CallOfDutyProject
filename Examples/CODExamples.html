@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matt Slifko">
+
+<title>Call of Duty Data Examples</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="CODExamples_files/libs/clipboard/clipboard.min.js"></script>
+<script src="CODExamples_files/libs/quarto-html/quarto.js"></script>
+<script src="CODExamples_files/libs/quarto-html/popper.min.js"></script>
+<script src="CODExamples_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="CODExamples_files/libs/quarto-html/anchor.min.js"></script>
+<link href="CODExamples_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="CODExamples_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="CODExamples_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="CODExamples_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="CODExamples_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Call of Duty Data Examples</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matt Slifko </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="preliminaries" class="level2">
+<h2 class="anchored" data-anchor-id="preliminaries">Preliminaries</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Delete all objects in Environment (use with caution)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">remove</span>(<span class="at">list =</span> <span class="fu">ls</span>()) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Load libraries</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.5.0 
+✔ readr   2.1.2      ✔ forcats 0.5.1 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read datasets into Environment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>CODGames1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/Data/CODGames1SP.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>CODGames2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/Data/CODGames2SP.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>GameModes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/Data/CODGameModes.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Maps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/Data/CODMaps.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Weapons <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/matthewdslifko/CallOfDutyProject/main/Data/CODWeapons.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="example-1---exploratory-data-analysis-eda-process-and-processing-character-data" class="level2">
+<h2 class="anchored" data-anchor-id="example-1---exploratory-data-analysis-eda-process-and-processing-character-data">Example 1 - Exploratory Data Analysis (EDA) Process and Processing Character Data</h2>
+<section id="discussion-opportunities" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li><p>data visualization</p></li>
+<li><p>the process of data exploration</p></li>
+<li><p>complementary roles of visualization and numerical summaries</p></li>
+<li><p>annotating plots with text</p></li>
+<li><p>character string processing and new variable creation</p></li>
+<li><p>multivariable thinking</p></li>
+</ul>
+</section>
+<section id="background-information" class="level4">
+<h4 class="anchored" data-anchor-id="background-information">Background Information</h4>
+<p>Begin by providing students with some information about the variable of interest: The variable <code>Damage</code> represents the amount of damage issued by the player on the opposing team’s players, weapons, and vehicles.</p>
+</section>
+<section id="initial-task-and-exploration" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration">Initial Task and Exploration</h4>
+<p>Instruction for students: Explore the distribution of <code>Damage</code>.</p>
+<p>Initial Exploration: <em>For this problem, use the larger dataset, <code>CODGames2</code></em>. Students will recognize the variable of interest, <code>Damage</code>, as quantitative. This may prompt students to create a boxplot, histogram, or some other type of plot that is appropriate for exploring the distribution of a single quantitative variable. We start with a boxplot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Boxplot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Damage)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Damage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_boxplot).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>I like to take this opportunity to remind students that the x-axis labels on this boxplot are not helpful and should be suppressed. As the code required to do this may not have been covered in class, I might suggest that students try a Google search such as “remove x axis boxplot ggplot r”. One solution is shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> Damage)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Damage"</span>) <span class="sc">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_boxplot).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Since a boxplot reduces the distribution to 5 numbers (and outliers), we might not be a getting a full picture of the distribution based on the boxplot. A histogram or violin plot might provide more detail.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Histogram</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Damage)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Damage"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Games"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong><em>Important Discussion Point</em></strong>: The end goal of EDA is not to create the visualization. Instead we want to learn something about the variable(s). In this case, we can see that the distribution is clearly bimodel with some outliers on the high end of the distribution.</p>
+<p>(Optional) For the sake presentations, I like to remind students that it is often helpful to annotate plots. For instance, I might want to call attention to the 2 highest bins. One way to accomplish this is demonstrated below. The annotate commands are partially automated but require some trial and error when determining coordinates.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Store the histogram as an object</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>histPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Damage)) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Damage"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Games"</span>) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract data used to create the histogram</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>histDat <span class="ot">&lt;-</span> <span class="fu">layer_data</span>(histPlot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sort the bins by the count variable and select the 2 highest counts</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>histDatModes <span class="ot">&lt;-</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  histDat <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Recreate the histogram; add open circles (shape = 1) to callout modes (stroke controls thickness of of circle borders) and annotate with line segments</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Damage)) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Damage"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Games"</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> histDatModes, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> count),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">stroke =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">5000</span>, </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">xend =</span> histDatModes<span class="sc">$</span>x[<span class="dv">1</span>] <span class="sc">+</span> (histDatModes<span class="sc">$</span>xmax[<span class="dv">1</span>] <span class="sc">-</span> histDatModes<span class="sc">$</span>xmin[<span class="dv">1</span>]), </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fl">137.5</span>, <span class="at">yend =</span> histDatModes<span class="sc">$</span>count[<span class="dv">1</span>],</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>()) <span class="sc">+</span> </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">5000</span>, </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">xend =</span> histDatModes<span class="sc">$</span>x[<span class="dv">2</span>] <span class="sc">+</span> (histDatModes<span class="sc">$</span>xmax[<span class="dv">2</span>] <span class="sc">-</span> histDatModes<span class="sc">$</span>xmin[<span class="dv">2</span>]), </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">125</span>, <span class="at">yend =</span> histDatModes<span class="sc">$</span>count[<span class="dv">2</span>],</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>()) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">5200</span>, <span class="at">y =</span> <span class="dv">128</span>, </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Bimodal distribution. What other </span><span class="sc">\n</span><span class="st">variables might affect </span><span class="sc">\n</span><span class="st">the distribution?"</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>At this time, I might ask students to think about other variables, either included in the dataset or not, might affect the distribution of <code>Damage</code>. Students often respond by suggesting that the primary weapon (<code>PrimaryWeapon</code>) might have an impact since different weapons do different amounts of damage. This is a good answer, but there is a better answer.</p>
+</section>
+<section id="further-background" class="level4">
+<h4 class="anchored" data-anchor-id="further-background">Further Background</h4>
+<p>After students have considered other variables that could impact the distribution of <code>Damage</code>, I will share the following background information: Some values in the <code>GameType</code> variable contain an “HC” designation. In the lingo of the game, this is meant to distinguish “Core” games from “Hardcore” games. Unlike Core games, players start with less health and health does not regenerate. Thus, there is less opportunity to deal damage in “HC” game modes.</p>
+</section>
+<section id="revised-task-and-exploration" class="level4">
+<h4 class="anchored" data-anchor-id="revised-task-and-exploration">Revised Task and Exploration</h4>
+<p>Instruction for students: Explore the distribution of <code>Damage</code> after accounting for whether the game is Core or HardCore.</p>
+<p>Revised Exploration: One approach for this situation is to create a new variable called Mode. The code below handles this by using the <code>grepl()</code> function to determine if <code>GameType</code> contains “HC”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Variable named Core</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>CODGames2 <span class="ot">&lt;-</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  CODGames2 <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mode =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">"HC - "</span>, GameType, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>), <span class="st">"HardCore"</span>, <span class="st">"Core"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Histogram of Damage Incorporating Core</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Damage, <span class="at">fill =</span> Mode)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#54B6E9"</span>, <span class="st">"#D55E00"</span>)) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Number of Games"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Mode"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Based on this plot, it is clear that <code>Damage</code> is a mixture of 2 distributions. The larger values of <code>Damage</code> occur during the Core games, while the HardCore games correspond to the lower values. To support this, we can calculate some summary statistics and add them to the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate summary stats of Damage for each level of Mode</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>DamageSummary <span class="ot">&lt;-</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  CODGames2 <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Mode) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(Damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">StdDev =</span> <span class="fu">sd</span>(Damage, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Histogram of Damage Incorporating Core and add summary stats</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Damage, <span class="at">fill =</span> Mode)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">position =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#54B6E9"</span>, <span class="st">"#D55E00"</span>)) <span class="sc">+</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Number of Games"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Mode"</span>) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">6000</span>, <span class="at">y =</span> <span class="dv">130</span>, </span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span> <span class="fu">paste</span>(<span class="st">"Core Mean Damage = "</span>, <span class="fu">round</span>(DamageSummary<span class="sc">$</span>Mean[<span class="dv">1</span>], <span class="at">digits=</span><span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">6000</span>, <span class="at">y =</span> <span class="dv">120</span>, </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span> <span class="fu">paste</span>(<span class="st">"Core SD Damage = "</span>, <span class="fu">round</span>(DamageSummary<span class="sc">$</span>StdDev[<span class="dv">1</span>], <span class="at">digits=</span><span class="dv">0</span>)))<span class="sc">+</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">6000</span>, <span class="at">y =</span> <span class="dv">100</span>, </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span> <span class="fu">paste</span>(<span class="st">"Hardcore Mean Damage = "</span>, <span class="fu">round</span>(DamageSummary<span class="sc">$</span>Mean[<span class="dv">2</span>],<span class="at">digits=</span><span class="dv">0</span>))) <span class="sc">+</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">6000</span>, <span class="at">y =</span> <span class="dv">90</span>, </span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">label=</span> <span class="fu">paste</span>(<span class="st">"Hardcore SD Damage = "</span>, <span class="fu">round</span>(DamageSummary<span class="sc">$</span>StdDev[<span class="dv">2</span>], <span class="at">digits=</span><span class="dv">0</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 164 rows containing non-finite values (stat_bin).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="summary" class="level4">
+<h4 class="anchored" data-anchor-id="summary">Summary</h4>
+<p>This example provides an opportunity to discuss a number of useful R functions and ideas, while presenting statistical thinking as a process of exploration, decision making, and multivariable reasoning.</p>
+</section>
+</section>
+<section id="example-2---processing-character-data-logical-errorsimportance-of-checking-calculations-and-investigating-warnings" class="level2">
+<h2 class="anchored" data-anchor-id="example-2---processing-character-data-logical-errorsimportance-of-checking-calculations-and-investigating-warnings">Example 2 - Processing Character Data, Logical Errors/Importance of Checking Calculations, and Investigating Warnings</h2>
+<section id="discussion-opportunities-1" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities-1">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li><p>character string processing and new variable creation</p></li>
+<li><p>if/else with more than 2 conditions</p></li>
+<li><p>importance of manually checking calculations</p></li>
+<li><p>data visualization and reordering factors for visualization</p></li>
+<li><p>exploring WARNING messages</p></li>
+<li><p>BONUS: discuss whether there is a difference between proportions of wins and losses OR is the difference just due to random variation?</p></li>
+</ul>
+</section>
+<section id="background-information-1" class="level4">
+<h4 class="anchored" data-anchor-id="background-information-1">Background Information</h4>
+<p>Each online match consists of two competing teams that earn points for various tasks. The <code>Result</code> variable shows the team scores at the end of the match. The player’s team score is listed first and the team with the higher score is considered the winner. Using <code>CODGames1</code>, some examples:</p>
+<ul>
+<li><p>Row 1: The character string “100-97” means that the player’s team won by a score of 100 to 97.</p></li>
+<li><p>Row 2: The character string “76-89” means that the player’s team lost by a score of 89 to 76.</p></li>
+<li><p>Row 36: The character string “200-200” means that the teams played to a draw, or tied 200 to 200.</p></li>
+</ul>
+</section>
+<section id="initial-task-and-exploration-1" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration-1">Initial Task and Exploration</h4>
+<p>Instruction for students: Answer the following research question using <code>CODGames1</code>: Is the player’s team more likely to win, lose, or draw?</p>
+<p>Initial exploration: If this is task is taught during the exploratory data analysis phase, I would expect students to support their answer both visually and numerically. I also emphasize that when calculating proportions, the code should work for any dataset, not just this specific dataset. (In other words, students should divide by 235 since 235 is the number of rows in this dataset.) The challenge is that the character string <code>Result</code> is not currently in a usable form. I would then prompt students to brainstorm how we can convert <code>Result</code> to something that is more useful to us.</p>
+<p>The key for this dataset is to recognize that a hyphen (“-”) separates the player’s team score from the opposing team score. So, we need to split the <code>Result</code> into two scores based on the hyphen. There are many ways to do this, but the <code>separate()</code> function from the <code>tidyr</code> package (part of <code>tidyverse</code>) is one potential solution. In the solution shown below, I also used the <code>case_when()</code> function to illustrate how to handle an if/else with more than 2 conditions. (A nested <code>ifelse()</code> command is also possible.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore); then create MatchResult to determine if player's team won, lost, or played to a draw</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong><em>Important Discussion Point</em></strong>: Just because your code runs without error does not mean that your code is correct. The code used above has an intentional mistake. The code runs without error, or warnings, but there is a logical error affect the results. You can see the mistake by exploring the first few rows the <code>Scores</code> dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult
+1 100-97             100            97        Loss
+2  76-89              76            89        Loss
+3 100-92             100            92        Loss
+4 80-100              80           100         Win
+5 71-100              71           100         Win
+6 85-100              85           100         Win</code></pre>
+</div>
+</div>
+<p>Based on the first six rows, we can see that the <code>MatchResults</code> values are seemingly incorrect for rows 1, 3, 4, 5, and 6. This prompts an important discussion as to the reason for the incorrect results.</p>
+<p>The key is that <code>PlayerTeamScore</code> and <code>OpponentScore</code> are still being treated as character strings. The greater than and less than comparisons are based on the alphabetical orderings. To clarify, consider Row 1. Since the “1” in “100” comes before the “9” in “97”, “100” is viewed as alphabetically first (or smaller) than “97”. This means that <code>PlayerTeamScore &lt; OpponentScore</code>, making this a loss.</p>
+<p>One possible solution is to convert these variables to numeric before making the comparison as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Separate Result into 2 new variables (PlayerTeamScore and OpponentScore) and convert to numeric; then create MatchResult to determine if player's team won, lost, or played to a draw</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PlayerTeamScore =</span> <span class="fu">as.numeric</span>(PlayerTeamScore),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">OpponentScore =</span> <span class="fu">as.numeric</span>(OpponentScore),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult
+1 100-97             100            97         Win
+2  76-89              76            89        Loss
+3 100-92             100            92         Win
+4 80-100              80           100        Loss
+5 71-100              71           100        Loss
+6 85-100              85           100        Loss</code></pre>
+</div>
+</div>
+<p>Now that <code>Result</code> has been converted to useful information, we can calculate proportions and visualize the results. (NOTE: Although it makes creating the plot more challenging, I would recommend exploring the proportions rather than the counts of Wins, Losses, and Draws. The main reason for this is that I sometimes tell students that <code>CODGames2</code> is a different player who played many more games. Comparing counts between the players is not as fair as comparing proportions.)</p>
+<p>First, determine the counts for Win, Loss, and Draw.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate Counts and Proportions for Win, Loss, Draw</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>MatchSummary <span class="ot">&lt;-</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  Scores <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(MatchResult) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Count<span class="sc">/</span><span class="fu">sum</span>(Count))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>MatchSummary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  MatchResult Count Proportion
+  &lt;chr&gt;       &lt;int&gt;      &lt;dbl&gt;
+1 Draw            3     0.0128
+2 Loss          106     0.451 
+3 Win           126     0.536 </code></pre>
+</div>
+</div>
+<p>We can use the <code>MatchSummary</code> data frame to visualize the results as shown below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a plot showing the proportions</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> MatchSummary, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> MatchResult, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Player's Team Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In many instances, we may want to reorder the categories on the x-axis. For instance, in this case, we might want reorder the bars in descending order based on <code>Proportion</code> or <code>Count</code>. I might ask students to spend a few minutes Google searching for how this might be accomplished.</p>
+<p>This can be done many ways such as using the <code>reorder()</code> function from the <code>stats</code> package or <code>fct_reorder()</code> from the <code>forcats</code> library. (<code>fct_reorder()</code> is loaded as part of the tidyverse and is useful for working with factors.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>MatchSummary <span class="ot">&lt;-</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  MatchSummary <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MatchResult =</span> <span class="fu">fct_reorder</span>(MatchResult, Proportion, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> MatchSummary, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> MatchResult, <span class="at">y =</span> Proportion)) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgreen"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Player's Team Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="challenges-on-other-gameplay-dataset-codgames2" class="level4">
+<h4 class="anchored" data-anchor-id="challenges-on-other-gameplay-dataset-codgames2">Challenges on Other Gameplay Dataset (<code>CODGames2</code>)</h4>
+<p>The second dataset, <code>CODGames2</code>, presents some additional challenges that arise when working with data. Suppose we try to separate the <code>Result</code> variable as before using the code shown below. A warning message is produced.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="ot">&lt;-</span> CODGames2 <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Result, <span class="at">into=</span><span class="fu">c</span>(<span class="st">"PlayerTeamScore"</span>, <span class="st">"OpponentScore"</span>), <span class="at">sep=</span><span class="st">"-"</span>, <span class="at">remove=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PlayerTeamScore =</span> <span class="fu">as.numeric</span>(PlayerTeamScore),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">OpponentScore =</span> <span class="fu">as.numeric</span>(OpponentScore),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">MatchResult =</span> <span class="fu">case_when</span>(PlayerTeamScore <span class="sc">&lt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Loss"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">&gt;</span> OpponentScore <span class="sc">~</span> <span class="st">"Win"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                                 PlayerTeamScore <span class="sc">==</span> OpponentScore <span class="sc">~</span> <span class="st">"Draw"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 20 rows [56, 57,
+58, 325, 326, 327, 768, 769, 770, 771, 772, 892, 893, 894, 895, 896, 897, 898,
+899, 900].</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in mask$eval_all_mutate(quo): NAs introduced by coercion</code></pre>
+</div>
+</div>
+<p><strong><em>Students often ignore warning messages, but this should be investigated.</em></strong> It is not obvious as to the reason that previously working code now produces a previously unseen warning. Have students investigate a few of the rows mentioned in he warning.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Scores <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Result, PlayerTeamScore, OpponentScore, MatchResult, GameType) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">row_number</span>() <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">56</span><span class="sc">:</span><span class="dv">58</span>, <span class="dv">325</span><span class="sc">:</span><span class="dv">327</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Result PlayerTeamScore OpponentScore MatchResult           GameType
+1 3 to 0              NA            NA        &lt;NA&gt;            Control
+2 3 to 0              NA            NA        &lt;NA&gt;            Control
+3 3 to 2              NA            NA        &lt;NA&gt;            Control
+4 2 to 6              NA            NA        &lt;NA&gt; Search and Destroy
+5 0 to 6              NA            NA        &lt;NA&gt; Search and Destroy
+6 5 to 6              NA            NA        &lt;NA&gt; Search and Destroy</code></pre>
+</div>
+</div>
+<p>Unfortunately, the <code>Result</code> column is not always formatted to include a hyphen. We can see that certain game types (Control and Search and Destroy) have the <code>PlayerTeamScore</code> and <code>OpponentScore</code> separated by the word “to” instead of a hyphen. There are several ways to handle this such as modifying the <code>separate()</code> function to look for a hyphen or “to”. Alternatively, we could replace “to” using a <code>gsub()</code> command.</p>
+</section>
+<section id="bonus-discussion" class="level4">
+<h4 class="anchored" data-anchor-id="bonus-discussion">Bonus Discussion</h4>
+<p>The plot shows that the player won a higher proportion of games than they lost. Do you believe the difference is due to random variation or something else?</p>
+</section>
+<section id="summary-1" class="level4">
+<h4 class="anchored" data-anchor-id="summary-1">Summary</h4>
+<p>This example provides an opportunity to discuss statistical thinking as an investigative process. The example requires students to process character data to create new/usable features, provides an opportunity to explore the critical idea that error free code may still be incorrect, allows for a discussion of many useful R functions and ideas, and presents a situation in which our working code breaks when used on another dataset.</p>
+</section>
+</section>
+<section id="example-3---combining-data-tables-and" class="level2">
+<h2 class="anchored" data-anchor-id="example-3---combining-data-tables-and">Example 3 - Combining Data Tables and</h2>
+<section id="discussion-opportunities-2" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities-2">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li><p>Joining tables (with no common variable names)</p></li>
+<li><p>Filtering observations according to a condition</p></li>
+<li><p>Data visualization</p></li>
+<li><p>Adding means to boxplot</p></li>
+<li><p>Categories with small <span class="math inline">\(n\)</span></p></li>
+<li><p>Handling typographical errors in data entry</p></li>
+</ul>
+</section>
+<section id="background-information-2" class="level4">
+<h4 class="anchored" data-anchor-id="background-information-2">Background Information</h4>
+<p>The variable <code>Score</code> represents points earned by the player for actions completed during a match. (This <code>Score</code> variable is different than the team scores explored in the previous question.) For instance, capturing an enemy location in the Domination game type earns 200 points while eliminating an enemy in Team Death Match (TDM) earns 50 points.</p>
+<p>The variable <code>FullPartial</code> indicates whether the player participated in the complete match (<code>FullPartial = Full</code>) or only participated in a portion of the match (<code>FullPartial = Partial</code>). There are several reasons that the player may have only participated in a partial match. First, the player may have encountered internet issues and was disconnected from the server. In such cases, the player is likely missing statistics related to the match performance. Second, the more common reason for a partial match is that the player was assigned to the game lobby after the game had already started. When the player joined an in-progress game, the player only completed a partial match.</p>
+<p>During each match, the player selects a primary weapon to use for the match. The player’s choice is listed in the <code>PrimaryWeapon</code> variable. As the game offers many weapon options and some weapons may have been used in limited circumstances, it may be helpful to explore the weapon class (e.g., shotgun, sniper rifle, melee, etc.). Information about the weapon classes are not found in the gameplay datasets. To get this information, you will have to use the <code>Class</code> variable from the <code>Weapons</code> dataset.</p>
+</section>
+<section id="initial-task-and-exploration-2" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration-2">Initial Task and Exploration</h4>
+<p>Instruction for students: Answer the following research question: For complete matches in <code>CODGames1</code>, does the player’s score depend on the weapon class used?</p>
+<p>Initial exploration: For a question like this, I like to ask students to sketch the visualization they wish to create and outline the steps that must be taken in order to create the visualization. For this question, we must add the weapon class to the gampeplay data, select the observations associated with full/complete matches, and create a visualization.</p>
+<p>NOTE: This problem requires students to get the weapon class (named <code>Class</code>) from the <code>Weapons</code> dataset and add it to the <code>CODGames1</code> dataset. First, we will check to see if the datasets have any common variable names. (They do not.) Then, we will preview the Weapons dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check to see if the datasets have any common variable names - They do not</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">intersect</span>(<span class="fu">colnames</span>(CODGames1), <span class="fu">colnames</span>(Weapons))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>character(0)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Preview Weapons</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Weapons, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Weapon         Class
+1  AK-47 Assault Rifle
+2    XM4 Assault Rifle
+3 Krig 6 Assault Rifle
+4 QBZ-83 Assault Rifle
+5 FFAR 1 Assault Rifle</code></pre>
+</div>
+</div>
+<p>Since the datasets have no variable names in common, we must decide how to establish a match between the datasets. In <code>CODGames1</code>, the player’s primary weapon choice was indicated in the <code>PrimaryWeapon</code> variable. In the <code>Weapons</code> dataset, the variable containing the name of specific weapons is named <code>Weapon</code>. We start by performing an appropriate join and removing the partial matches.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>GamesWithClass <span class="ot">&lt;-</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(Weapons, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"PrimaryWeapon"</span><span class="ot">=</span><span class="st">"Weapon"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(FullPartial <span class="sc">==</span> <span class="st">"Full"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Score, FullPartial, PrimaryWeapon, Class)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(GamesWithClass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Score FullPartial PrimaryWeapon          Class
+1  4070        Full           M16 Tactical Rifle
+2  5305        Full           M16 Tactical Rifle
+3  3335        Full           M16 Tactical Rifle
+4  2170        Full           M16 Tactical Rifle
+5  2195        Full           M16 Tactical Rifle
+6   850        Full           M16 Tactical Rifle</code></pre>
+</div>
+</div>
+<p>We can explore this research question by creating side-by-side boxplots that show the distribution of <code>Score</code> for each of the weapon classes as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> GamesWithClass, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Class, <span class="at">y =</span> Score)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weapon Class"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Applying tricks that were previously covered, we might want to reorder the weapon classes in descending order of the medians. Further, since students often look at boxplots and talk about the mean, which is not included by default, I will ask students to add the mean to these boxplots. To do this, create a new dataset called <code>ClassSummaries</code> that have the means for each class</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate summary stats for each class </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>ClassSummaries <span class="ot">&lt;-</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  GamesWithClass <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Class) <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Games =</span> <span class="fu">n</span>(),</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">MeanScore =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">StdDevScore =</span> <span class="fu">sd</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">MedianScore =</span> <span class="fu">median</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Reorder Weapon classes based on decreasing medians</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>GamesWithClass <span class="ot">&lt;-</span> </span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  GamesWithClass <span class="sc">%&gt;%</span> </span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Class =</span> <span class="fu">fct_reorder</span>(Class, Score, <span class="at">.fun =</span> median, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Create Side by side boxplots with means</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> GamesWithClass, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>Class, <span class="at">y=</span>Score)) <span class="sc">+</span> </span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> ClassSummaries, <span class="fu">aes</span>(<span class="at">y =</span> MeanScore), <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Weapon Class"</span>,</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Score"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Do you think it is fair to conclude that the LMG weapon class is associated with larger values of <code>Score</code> than the other classes? Why does the boxplot consist of a single line but lacks a box and whiskers?</p>
+</section>
+<section id="challenges-on-other-gameplay-dataset-codgames2-1" class="level4">
+<h4 class="anchored" data-anchor-id="challenges-on-other-gameplay-dataset-codgames2-1">Challenges on Other Gameplay Dataset (<code>CODGames2</code>)</h4>
+<p>The second dataset, <code>CODGames2</code>, presents some additional challenges that arise when working with data. In particular, some of the values in <code>PrimaryWeapon</code> do not match the values for <code>Weapon</code> found in the <code>Weapons</code> dataset. To illustrate this, consider the following which lists the distinct values of <code>PrimaryWeapon</code> in <code>CODGames2</code> in ascending order.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>CODGames2 <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(PrimaryWeapon) <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(PrimaryWeapon)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     PrimaryWeapon
+1            AK 47
+2            AK-47
+3           AK-47u
+4              AUG
+5     Combat Knife
+6           DMR 14
+7          FARA-83
+8           FFAR 1
+9            Gallo
+10           Groza
+11           Hauer
+12        Hauer 77
+13            Krig
+14          KSP 45
+15           LC-10
+16             M16
+17             M60
+18          Mac 10
+19          Mac-10
+20          Magnum
+21           MG 82
+22          Milano
+23      Milano 821
+24 Minute of Alpha
+25             MP5
+26   Pelington 703
+27      Pellington
+28  Pellington 703
+29         PPsh-41
+30         PPSh-41
+31          QBZ 83
+32             RPD
+33    ShadowHunter
+34          Stoner
+35          SToner
+36       Stoner 63
+37         Type 63
+38             XM4
+39            &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Looking at the first few rows reveals some potential issues. There is an “AK 47” and an “AK-47”. Checking the <code>Weapons</code> dataset reveals that the proper name is “AK-47”. (“AK-47u” is actually a different type of weapon.) So, the rows with “AK 47” (no hyphen) are likely typographical errors and will have no match in the <code>Weapons</code> dataset. Similar mistakes occur with other weapons, such as “Pelington 703”, “Pellington”, and “Pellington 703”. This helps to illustrate that data quality issues present additional challenges.</p>
+<p>This opens up several good discussion points. First, ask students how they will go about solving this issue. Second, it brings up an opportunity to review how different types of joins will handle the situation when no match is present. For instance, <code>left_join()</code> and <code>inner_join()</code> handle situations without a match differently. Finally, these could be used to motivate the idea of probabilistic joins.</p>
+</section>
+<section id="summary-2" class="level4">
+<h4 class="anchored" data-anchor-id="summary-2">Summary</h4>
+<p>This example provides an opportunity to have students join tables for the purpose of adding new information and to discuss the decision making process for handling low quality data in the form of typographical errors.</p>
+</section>
+</section>
+<section id="example-4---regression" class="level2">
+<h2 class="anchored" data-anchor-id="example-4---regression">Example 4 - Regression</h2>
+<section id="discussion-opportunities-3" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-opportunities-3">Discussion Opportunities</h4>
+<p>This example provides an opportunity to discuss the following ideas:</p>
+<ul>
+<li><p>linear regression and checking assumptions</p></li>
+<li><p>residuals</p></li>
+<li><p>multivariable thinking and lurking variables</p></li>
+<li><p>indicator variables</p></li>
+<li><p>interaction</p></li>
+<li><p>comparing models</p></li>
+<li><p>outliers</p></li>
+<li><p>statistics as an investigative process</p></li>
+<li><p>implementation issues on new data</p></li>
+</ul>
+</section>
+<section id="background-information-3" class="level4">
+<h4 class="anchored" data-anchor-id="background-information-3">Background Information</h4>
+<p>In the game, players progress through a series of ranks (Private, Corporal, Sergeant, etc.) by earning eXperience Points (XP). The amount of XP the player earned in each match is contained in the <code>TotalXP</code> variable.</p>
+<p>The <code>Score</code> variable (described in Example 3), along with other factors that are not necessarily included in the dataset, are used to calculate the XP earned during each game.</p>
+</section>
+<section id="initial-task-and-exploration-3" class="level4">
+<h4 class="anchored" data-anchor-id="initial-task-and-exploration-3">Initial Task and Exploration</h4>
+<p>Instruction for students: Using the <code>CODGames1</code> dataset, answer the following research question: What is the relationship between the player’s score and the XP earned?</p>
+<p>As a starting point, students may begin to explore the relationship by creating an appropriate visualization such as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a scatterplot showing relationship between TotalXP and Score</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Score, <span class="at">y =</span> TotalXP)) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Experience Points Earned"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Since a linear relationsihp appears reasonable, build a simple linear regression model</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalXP <span class="sc">~</span> Score, <span class="at">data =</span> CODGames1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The plot suggests a reasonably linear pattern and produces an <span class="math inline">\(R^2 =\)</span> 0.33. However, there might be an issue with increasing variance and/or some outliers in which the player earned more than 30,000 XP in a single match. (More on these outliers can be find near the end of the Revised Task and Exploration section.)</p>
+<p>This might serve as a good time to review the assumptions of linear regression and methods for investigating the assumptions.</p>
+<p><strong>Important discussion point (Multivariate thinking)</strong>: I like to use this opportunity to remind students to think about other variables, included in the dataset or otherwise, that might also impact this relationship.</p>
+</section>
+<section id="further-background-1" class="level4">
+<h4 class="anchored" data-anchor-id="further-background-1">Further Background</h4>
+<p>Players can earn and use tokens that grant double the amount of XP for short periods of time (e.g., 30 minutes). The variable <code>XPType</code> provides information as to the nature of the XP granted. In the <code>CODGames1</code> dataset, <code>XPType</code> takes on values of <code>10% Boost</code> and <code>Double XP + 10%</code>, the latter of which suggests that a double XP token has been used.</p>
+</section>
+<section id="revised-task-and-exploration-1" class="level4">
+<h4 class="anchored" data-anchor-id="revised-task-and-exploration-1">Revised Task and Exploration</h4>
+<p>Instruction for students: For the regression model for XP based on Score, create a plot showing the residuals as a function of the predicted values. Code the points (use color/shape) to incorporate the <code>XPType</code> and look for patterns.</p>
+<p>Continued exploration: The plot is shown below. Some discussion points, include adding a horizontal line (through the <code>geom_hline()</code>, specifying the colors to be used through <code>scale_color_manual()</code>, moving the legend location, and how color might cause problems for people with types of color-blindness (so we added shapes).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a temporary data frame containing the residuals, fitted values, and XPType</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>temp_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Residuals =</span> model1<span class="sc">$</span>residuals, <span class="at">yhat =</span> model1<span class="sc">$</span>fitted.values,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">XPType =</span> CODGames1<span class="sc">$</span>XPType)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the visualization</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> temp_df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> yhat, <span class="at">y =</span> Residuals, </span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">color =</span> XPType, <span class="at">shape =</span> XPType)) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> </span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"#54B6E9"</span>, <span class="st">"#D55E00"</span>)) <span class="sc">+</span> </span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Predicted Value"</span>,</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Residual"</span>,</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type of XP"</span>,</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Type of XP"</span>) <span class="sc">+</span></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot suggests that most of the positive residuals correspond to the situation in which the player has used a double XP token (triangles), while most of the negative residuals correspond to the case when double XP is not used (circles). This means that we are systematically overestimating the XP for cases in which double XP is not used, while underestimating the XP when double XP tokens are used. Updating the scatterplot of XP as a function of <code>Score</code>, but coding by <code>XPType</code> helps to visually illustrate the nature of the relationship.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a scatterplot showing relationship between TotalXP and Score</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Score, <span class="at">y =</span> TotalXP,</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">color =</span> XPType, <span class="at">shape =</span> XPType)) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Experience Points Earned"</span>,</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type of XP"</span>,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Type of XP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot suggests potentially different intercepts and different slopes for the different levels of <code>XPType</code>. At this point, I like to ask students how we can account for this in our model. We can incorporate this information into our model by introducing an indicator variable for <code>XPType</code> and an interaction term between the <code>XPType</code> indicator and <code>Score</code>. While the <code>lm()</code> function can automatically create indicators and the interaction term, I prefer to create my own so that I have control over the use of 0’s and 1’s.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create indicator for Double XP and interaction term</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>CODGames1 <span class="ot">&lt;-</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  CODGames1 <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Double =</span> <span class="fu">ifelse</span>(XPType <span class="sc">==</span> <span class="st">"Double XP + 10%"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ScoreDoubleInt =</span> Score<span class="sc">*</span>Double)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Build multiple linear regression model</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalXP <span class="sc">~</span> Score <span class="sc">+</span> Double <span class="sc">+</span> ScoreDoubleInt, <span class="at">data =</span> CODGames1)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = TotalXP ~ Score + Double + ScoreDoubleInt, data = CODGames1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11212.6  -1962.9    -45.6   1713.4  21580.5 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    5716.2131   724.8749   7.886 1.24e-13 ***
+Score             1.1052     0.2391   4.622 6.33e-06 ***
+Double         1965.5461  1157.0974   1.699   0.0907 .  
+ScoreDoubleInt    1.7374     0.3419   5.082 7.70e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3746 on 231 degrees of freedom
+Multiple R-squared:  0.6647,    Adjusted R-squared:  0.6604 
+F-statistic: 152.7 on 3 and 231 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The analysis of this model can promote a variety of discussions such as comparing models, significance testing, interpreting coefficients, generating confidence intervals, explaining interactions, further investigation of assumptions, etc.</p>
+<p><strong>Outliers</strong>: The scatterplots of <code>TotalXP</code> as a function of <code>Score</code> reveal a few outliers on the high end (XP more than 30,000). The outliers can be explained. Basically, as a player uses a weapon, the player will complete something called a weapon challenge. Upon completion of all weapon challenges for a given weapon, the player is award 10,000 XP points. If the player was also using a double XP token, this results in the player earning an extra 20,000 points.</p>
+<p><strong>Important discussion point</strong>: I usually take this opportunity to discuss how subject matter expertise/domain knowledge gives certain students an advantage working with this dataset. Although I provide students with the necessary background to guide the exploration, students who have knowledge of the game would likely outperform peers without knowledge. This translates into real world situations as well.</p>
+</section>
+<section id="challenges-on-other-gameplay-dataset-codgames2-2" class="level4">
+<h4 class="anchored" data-anchor-id="challenges-on-other-gameplay-dataset-codgames2-2">Challenges on Other Gameplay Dataset (<code>CODGames2</code>)</h4>
+<p>Even when students understand the methodology covered in this example, new challenges arise when implementing the methods on different datasets. Applying the same code and methods to the <code>CODGames2</code> dataset presents several challenges.</p>
+<p>First, the code to create the temporary data frame used for the residuals vs.&nbsp;fitted values plot, no longer works.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Build SLR model on CODGames2</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>model1_dat2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalXP <span class="sc">~</span> Score, <span class="at">data =</span> CODGames2)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Create temporary dataframe for plotting as we did before</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>temp_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Residuals =</span> model1_dat2<span class="sc">$</span>residuals, <span class="at">yhat =</span> model1_dat2<span class="sc">$</span>fitted.values,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">XPType =</span> CODGames2<span class="sc">$</span>XPType)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in data.frame(Residuals = model1_dat2$residuals, yhat = model1_dat2$fitted.values, : arguments imply differing number of rows: 1309, 1464</code></pre>
+</div>
+</div>
+<p>The error messages mentions that arguments imply differing number of rows. The 1464 number corresponds to the number of rows in <code>CODGames2</code>. The 1309 number is a little more mysterious. It corresponds to the number of residuals (or predicted values) from the model. Why are there 1309 residuals when the dataset had 1464 rows? This is because the dataset has some missing values in the <code>TotalXP</code> and/or <code>Score</code> columns.</p>
+<p>Second, suppose that we wish to recreate the scatterplot of <code>TotalXP</code> as a function <code>Score</code> coded by <code>XPType</code> using the <code>CODGames2</code> dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a scatterplot showing relationship between TotalXP and Score</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> CODGames2, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Score, <span class="at">y =</span> TotalXP,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">color =</span> XPType, <span class="at">shape =</span> XPType)) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Experience Points Earned"</span>,</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Type of XP"</span>,</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Type of XP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 155 rows containing non-finite values (stat_smooth).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The shape palette can deal with a maximum of 6 discrete values because
+more than 6 becomes difficult to discriminate; you have 7. Consider
+specifying shapes manually if you must have them.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 157 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="CODExamples_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot reveals that <code>XPType</code> has more than the 2 levels (<code>Double XP + 10%</code> and <code>10% Boost</code>) we expected. Most of the additional levels are typos, spacing issues such as no space after <code>+</code> sign, or inconsistent naming (in the case of <code>10% Boost</code> vs <code>10% Season Boost</code>). This provides a nice opportunity to discuss how students will handle the extra levels.</p>
+<p>Third, we often compare models by assessing performance on a test set. Suppose we use <code>model2</code>, which was trained used <code>CODGames1</code> and included the <code>XPType</code> indicator and interaction terms. Suppose we want to see how will this model will generalize to new data in the form of <code>CODGames2</code>. Allow R to create its own indicators (something students prefer to do) and add the interaction term through the model statement as shown below. Then, try to obtain predictions for <code>CODGames2</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recreate model2 using CODGames1 but let R create indicators</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(TotalXP <span class="sc">~</span> Score <span class="sc">+</span> XPType <span class="sc">+</span> Score<span class="sc">:</span>XPType, <span class="at">data =</span> CODGames1)</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>test_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model2, <span class="at">newdata =</span> CODGames2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = object$xlevels): factor XPType has new levels 10% Season Boost, Double XP, Double XP _%, Double XP +10%, Doulbe XP + 10%</code></pre>
+</div>
+</div>
+<p>The throws an error message since the <code>XPType</code> variable in <code>CODGames2</code> has new levels that did not show in the training data (<code>CODGames1</code>).</p>
+</section>
+<section id="summary-3" class="level4">
+<h4 class="anchored" data-anchor-id="summary-3">Summary</h4>
+<p>This example provides an opportunity to discuss statistical thinking as an investigative process, explore multivariable thinking, and covers some common implementation challenges caused by data quality issues.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
